@@ -1,0 +1,58 @@
+# This file configures the analyzer, which statically analyzes Dart code to
+# check for errors, warnings, and lints.
+#
+# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
+# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
+# invoked from the command line by running `flutter analyze`.
+
+# Disable default Flutter lints to allow for our condensed code style
+# include: package:flutter_lints/flutter.yaml
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+  errors:
+    # Disable formatting errors
+    lines_longer_than_80_chars: ignore
+    unnecessary_new: ignore
+    unnecessary_this: ignore
+    unnecessary_const: ignore
+    unnecessary_brace_in_string_interps: ignore
+    prefer_single_quotes: ignore
+    prefer_collection_literals: ignore
+    directives_ordering: ignore
+    always_use_package_imports: ignore
+    unnecessary_statements: ignore
+    avoid_function_literals_in_foreach_calls: ignore
+  language:
+    strict-casts: false
+    strict-raw-types: false
+
+linter:
+  # The lint rules applied to this project can be customized in the
+  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
+  # included above or to enable additional rules. A list of all available lints
+  # and their documentation is published at https://dart.dev/lints.
+  rules:
+    # Disable all formatting-related rules
+    prefer_single_quotes: false
+    prefer_double_quotes: false
+    always_specify_types: false
+    always_put_required_named_parameters_first: false
+    always_put_control_body_on_new_line: false
+    curly_braces_in_flow_control_structures: false
+    prefer_equal_for_default_values: false
+    prefer_expression_function_bodies: true  # Enable to allow => expressions
+    unnecessary_this: false
+    omit_local_variable_types: true  # Allow omitting local variable types
+    prefer_relative_imports: false
+    prefer_final_locals: false
+    unnecessary_new: false
+    unnecessary_const: false
+    avoid_print: false
+
+    # Disable line length limit
+    lines_longer_than_80_chars: false
+
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options
