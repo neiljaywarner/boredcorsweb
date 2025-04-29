@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -25,7 +26,10 @@ class _QuotePageState extends State<QuotePage> {
 
   Future<void> _fetch() async {
     setState(() => _loading = true);
-    final r = await http.get(Uri.parse('https://zenquotes.io/api/random'));
+    final Uri apiUrl =
+        kIsWeb ? Uri.parse('/api/random') : Uri.parse('https://zenquotes.io/api/random');
+
+    final r = await http.get(apiUrl);
     final d = jsonDecode(r.body);
     setState(() {
       _q = d.first['q'];
