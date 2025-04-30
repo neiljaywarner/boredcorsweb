@@ -8,14 +8,13 @@ This app displays random quotes from the ZenQuotes API. Since the API doesn't su
 direct browser requests, we use a Netlify serverless function as a proxy to handle these requests
 when deployed as a web app.
 
+## Getting Started
+
+Before proceeding with deployment, make sure you have all the necessary tools and accounts set up.
+
+**[View the complete prerequisites guide](PREREQUISITES.md)**
+
 ## Deployment Instructions
-
-### Prerequisites
-
-- [Flutter](https://flutter.dev/docs/get-started/install) installed
-- [Netlify CLI](https://docs.netlify.com/cli/get-started/) installed (`npm install netlify-cli -g`)
-- GitHub account
-- Netlify account
 
 ### Local Development
 
