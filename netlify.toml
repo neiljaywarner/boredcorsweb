@@ -1,10 +1,11 @@
 [build]
 command = """
-    curl -fsSL https://get.puro.dev/install.sh | sh
-    export PATH="$PATH:$HOME/.puro/bin"
-    puro install flutter --system
-    export PATH="$PATH:$HOME/.puro/envs/flutter/flutter/bin"
+    FLUTTER_VERSION="3.22.2" # Specify a recent stable Flutter version
+    curl -fSL https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${FLUTTER_VERSION}-stable.tar.xz -o flutter.tar.xz
+    tar xf flutter.tar.xz
+    export PATH="$PWD/flutter/bin:$PATH"
     flutter config --enable-web
+    flutter pub get # Ensure dependencies are fetched
     flutter build web --release
   """
 publish = "build/web"

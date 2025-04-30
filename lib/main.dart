@@ -41,5 +41,5 @@ class _QuotePageState extends State<QuotePage> {
 
   @override
   Widget build(BuildContext context) =>
-      Scaffold(body: Center(child: _loading ? const CircularProgressIndicator() : Text(_q)));
+      Scaffold(body: Center(child: _loading ? const CircularProgressIndicator() : Text(',,$_q')));
 }
