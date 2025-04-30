@@ -5,71 +5,38 @@ application.
 
 ## Required Software
 
-### 1. Homebrew (macOS)
-
-[Homebrew](https://brew.sh/) is a package manager for macOS that makes it easy to install
-development tools.
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-### 2. Node.js and npm
-
-Node.js and npm are required for Netlify CLI and serverless functions.
-
-Using Homebrew (macOS):
-
-```bash
-brew install node
-```
-
-For other platforms, download from [Node.js website](https://nodejs.org/).
-
-Verify installation:
-
-```bash
-node --version
-npm --version
-```
-
-### 3. Flutter
+### Flutter
 
 Flutter is the framework used to build the application.
 
-#### Installation Steps:
+**Traditional Installation:**
 
 1. Download Flutter SDK from [Flutter's website](https://docs.flutter.dev/get-started/install)
-
-2. Extract the SDK to a desired location (e.g., `~/development/flutter`)
-
-3. Add Flutter to your path:
-
-   For macOS (add to `~/.zshrc` or `~/.bash_profile`):
-   ```bash
-   export PATH="$PATH:~/development/flutter/bin"
-   ```
-
-4. Run Flutter doctor to verify installation and identify any dependencies:
-   ```bash
-   flutter doctor
-   ```
-
+2. Extract the SDK to a desired location
+3. Add Flutter to your path
+4. Run `flutter doctor` to verify installation and identify any dependencies
 5. Install any missing dependencies identified by Flutter doctor
 
-### 4. Netlify CLI
+For detailed instructions, visit
+the [Flutter installation guide](https://docs.flutter.dev/get-started/install).
 
-The Netlify Command Line Interface is needed for local development and deployment.
+**Quick Install with Puro (Recommended):**
 
-```bash
-npm install netlify-cli -g
-```
-
-Verify installation:
+For a faster and easier Flutter setup, you can use Puro - a Flutter version manager:
 
 ```bash
-netlify --version
+# Install Puro
+curl -fsSL https://get.puro.dev/install.sh | sh
+
+# Add Puro to your path (follow instructions after install)
+# Then create a new Flutter project setup
+puro init
+
+# Verify installation
+puro flutter --version
 ```
+
+Puro automatically manages Flutter versions and dependencies, making setup much simpler.
 
 ## Setting Up Accounts
 
@@ -84,36 +51,24 @@ netlify --version
 
 ### Netlify Account
 
-[Netlify](https://www.netlify.com/) is a web hosting and automation platform that we'll use to
-deploy our Flutter web application and handle CORS issues through serverless functions.
+Netlify is a web hosting platform that we'll use to deploy our Flutter web application and handle
+CORS issues through serverless functions.
 
-#### Creating a Netlify Account:
+#### Creating and Connecting a Netlify Account:
 
-1. Go to [Netlify's signup page](https://app.netlify.com/signup)
-2. You can sign up using your GitHub account (recommended), or with an email address
+1. **Sign up**: Go to [Netlify's signup page](https://app.netlify.com/signup)
+    - You can sign up using your GitHub account (recommended), or with an email address
 
-#### Connecting Netlify to GitHub:
-
-1. After signing up and logging in to Netlify, click on your profile picture in the top right corner
-2. Select "User settings" from the dropdown menu
-3. In the left sidebar, click on "Applications"
-4. Under "OAuth applications", you will see GitHub if already connected. If not:
-    - Click "Install" next to GitHub
+2. **Connecting to GitHub**:
+    - After logging in to Netlify, click on your profile picture in the top right corner
+    - Select "User settings" from the dropdown menu
+    - In the left sidebar, click on "Applications"
+    - Under "OAuth applications", click "Install" next to GitHub
     - You'll be redirected to GitHub to authorize Netlify
     - Choose whether to give Netlify access to all repositories or only select ones
     - Click "Install" to confirm
 
-#### Testing the Connection:
-
-1. Return to the Netlify dashboard
-2. Click "New site from Git"
-3. Select "GitHub" as your Git provider
-4. You should see a list of your GitHub repositories (if authorized)
-5. If you see your repositories, the connection is successful
-6. You can cancel this process for now if you're just testing the connection
-
-This connection will allow you to easily deploy your application from your GitHub repository in
-later steps.
+This connection will allow you to easily deploy your application from your GitHub repository.
 
 ## Next Steps
 

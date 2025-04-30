@@ -1,8 +1,9 @@
 [build]
 command = """
-    git clone https://github.com/flutter/flutter.git -b stable --depth 1
-    export PATH="$PATH:`pwd`/flutter/bin"
-    flutter precache
+    curl -fsSL https://get.puro.dev/install.sh | sh
+    export PATH="$PATH:$HOME/.puro/bin"
+    puro install flutter --system
+    export PATH="$PATH:$HOME/.puro/envs/flutter/flutter/bin"
     flutter config --enable-web
     flutter build web --release
   """

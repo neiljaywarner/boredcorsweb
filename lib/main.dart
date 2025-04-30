@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'constants.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -21,13 +23,13 @@ class _QuotePageState extends State<QuotePage> {
   var _q = '';
   @override
   void initState() {
+    super.initState();
     _fetch();
   }
 
   Future<void> _fetch() async {
     setState(() => _loading = true);
-    final Uri apiUrl =
-        kIsWeb ? Uri.parse('/api/random') : Uri.parse('https://zenquotes.io/api/random');
+    final Uri apiUrl = kIsWeb ? Uri.parse(webApiPath) : Uri.parse(mobileApiUrl);
 
     final r = await http.get(apiUrl);
     final d = jsonDecode(r.body);
