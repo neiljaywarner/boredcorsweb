@@ -22,6 +22,12 @@ Before proceeding with deployment, make sure you have all the necessary tools an
 2. Run `flutter pub get` to install dependencies
 3. For mobile: Run `flutter run` to test on mobile devices/emulators
 4. For web with Netlify Dev:
+
+   **Prerequisites**:
+    - Make sure you have the [Netlify CLI](https://docs.netlify.com/cli/get-started/) installed (
+      `npm install netlify-cli -g`)
+
+   **Setup**:
    ```bash
    # First, make sure the netlify/functions directory exists
    mkdir -p netlify/functions
@@ -88,6 +94,26 @@ cd ../..
 netlify dev
 
    ```
+   
+   **What the Netlify dev server does**:
+   
+   The Netlify dev server:
+   - Creates a local development environment that mimics the Netlify production environment
+   - Automatically detects and runs your project (in this case, it builds and serves the Flutter web app)
+   - Makes your serverless functions available locally at `/.netlify/functions/[function-name]`
+   - Processes the redirect rules in your `netlify.toml` file (mapping `/api/*` to the serverless function)
+   
+   **Accessing your local app**:
+   
+   After running `netlify dev`:
+   1. The terminal will show a URL (usually `http://localhost:8888`)
+   2. Open this URL in your browser to access your Flutter web app
+   3. The app will automatically use the local Netlify function to handle API requests
+   4. You can also test the function directly at `http://localhost:8888/api/random`
+   
+   **Stopping the server**:
+   
+   Press `Ctrl+C` in the terminal to stop the Netlify dev server.
 
 ### Deploy to Netlify
 
@@ -99,14 +125,27 @@ netlify dev
    - Select GitHub and authorize Netlify
    - Select your repository
 
-3. Configure build settings:
-   - Build command: `flutter build web --release`
-   - Publish directory: `build/web`
-   - Click "Deploy site"
+3. **No need to configure build settings manually**:
+   - The `netlify.toml` file in the repository already contains the necessary build configuration
+   - It will automatically install Flutter during the build process
+   - The build script will configure Flutter for web and build the release version
+   - Deployment typically takes 5-10 minutes because it needs to download and set up Flutter
 
-4. After the initial deployment:
+4. After the deployment is complete:
    - Go to "Functions" in your Netlify dashboard to verify the API proxy function is working
    - Test your site by visiting the deployed URL
+   - To test the API proxy directly, visit `https://your-site-name.netlify.app/api/random`
+
+### Understanding the Build Process
+
+The `netlify.toml` file contains a multi-line build command that:
+1. Clones the Flutter SDK from GitHub (stable branch)
+2. Adds Flutter to the PATH
+3. Pre-caches Flutter dependencies
+4. Enables web support
+5. Builds the Flutter web app in release mode
+
+This approach ensures that Flutter is properly installed in the Netlify build environment.
 
 ### How It Works
 
