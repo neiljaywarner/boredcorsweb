@@ -1,0 +1,7 @@
+# API routes
+[routes]
+"/api/proxy/*" = "proxy"
+
+# Web app configuration
+[web]
+directory = "web"

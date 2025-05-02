@@ -1,0 +1,17 @@
+# .globe .gitignore file
+
+# Dart compilation artifacts
+*.dart.js
+*.info.json
+*.js
+*.js.deps
+*.js.map
+
+# Build directories
+build/
+
+# Node modules
+node_modules/
+
+# Local Globe configuration
+.globe.json

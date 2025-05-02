@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,17 +9,19 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => MaterialApp(home: QuotePage());
+  Widget build(BuildContext context) => MaterialApp(home: BoredActivityPage());
 }
 
-class QuotePage extends StatefulWidget {
+class BoredActivityPage extends StatefulWidget {
   @override
-  State<QuotePage> createState() => _QuotePageState();
+  State<BoredActivityPage> createState() => _BoredActivityPageState();
 }
 
-class _QuotePageState extends State<QuotePage> {
+class _BoredActivityPageState extends State<BoredActivityPage> {
   bool _loading = true;
-  var _q = '';
+  String _activity = '';
+  String _type = '';
+
   @override
   void initState() {
     super.initState();
@@ -29,17 +30,48 @@ class _QuotePageState extends State<QuotePage> {
 
   Future<void> _fetch() async {
     setState(() => _loading = true);
-    final Uri apiUrl = kIsWeb ? Uri.parse(webApiPath) : Uri.parse(mobileApiUrl);
+    final Uri uri = Uri.parse(apiUrl);
 
-    final r = await http.get(apiUrl);
-    final d = jsonDecode(r.body);
-    setState(() {
-      _q = d.first['q'];
-      _loading = false;
-    });
+    try {
+      final response = await http.get(uri);
+      final data = jsonDecode(response.body);
+      setState(() {
+        _activity = data['activity'];
+        _type = data['type'];
+        _loading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _activity = 'Error loading activity: ${e.toString()}';
+        _loading = false;
+      });
+    }
   }
 
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(body: Center(child: _loading ? const CircularProgressIndicator() : Text(',,$_q')));
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: const Text('Bored Activity Suggestions')),
+    body: Center(
+      child:
+          _loading
+              ? const CircularProgressIndicator()
+              : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      _activity,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    Text('Type: $_type', style: Theme.of(context).textTheme.bodyLarge),
+                    const SizedBox(height: 24),
+                    ElevatedButton(onPressed: _fetch, child: const Text('Get Another Activity')),
+                  ],
+                ),
+              ),
+    ),
+  );
 }
